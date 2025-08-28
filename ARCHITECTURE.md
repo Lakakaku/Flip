@@ -354,7 +354,7 @@ class AIService {
   private openaiClient?: OpenAIClient;
 
   async analyzeProduct(images: string[], description: string) {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       // Use free alternatives during development
       const tfAnalysis = await this.tensorflowAnalyzer.analyze(images);
       const textAnalysis = await this.ollamaClient.analyze(description);
@@ -370,7 +370,7 @@ class AIService {
     const priceData = await this.getPriceStatistics(listing);
 
     if (!priceData || priceData.confidence < 0.6) {
-      return { shouldNotify: false, reason: "Insufficient data" };
+      return { shouldNotify: false, reason: 'Insufficient data' };
     }
 
     return {
@@ -396,21 +396,21 @@ const channels = {
   squadChat: (squadId: string) => `squad:${squadId}`,
 
   // Admin monitoring
-  systemHealth: "admin:health",
-  scrapingStatus: "admin:scrapers",
+  systemHealth: 'admin:health',
+  scrapingStatus: 'admin:scrapers',
 };
 
 // Client subscription
 const subscription = supabase
   .channel(channels.userNotifications(userId))
   .on(
-    "postgres_changes",
+    'postgres_changes',
     {
-      event: "INSERT",
-      schema: "public",
-      table: "notifications",
+      event: 'INSERT',
+      schema: 'public',
+      table: 'notifications',
     },
-    handleNewNotification,
+    handleNewNotification
   )
   .subscribe();
 ```
@@ -483,7 +483,7 @@ sequenceDiagram
 
 ```typescript
 class EncryptionService {
-  private algorithm = "aes-256-gcm";
+  private algorithm = 'aes-256-gcm';
 
   // User platform credentials
   async encryptCredentials(userId: string, platform: string, creds: any) {
@@ -508,26 +508,26 @@ class EncryptionService {
 const cacheConfig = {
   // Static content
   images: {
-    strategy: "stale-while-revalidate",
+    strategy: 'stale-while-revalidate',
     maxAge: 86400, // 24 hours
   },
 
   // Price statistics
   priceData: {
-    strategy: "cache-first",
+    strategy: 'cache-first',
     maxAge: 7200, // 2 hours
     staleTime: 3600, // 1 hour
   },
 
   // User data
   profile: {
-    strategy: "network-first",
+    strategy: 'network-first',
     maxAge: 300, // 5 minutes
   },
 
   // Real-time data
   notifications: {
-    strategy: "network-only", // Always fresh
+    strategy: 'network-only', // Always fresh
   },
 };
 ```
@@ -563,19 +563,19 @@ REFRESH MATERIALIZED VIEW mv_price_stats;
 const metrics = {
   // Business metrics
   activeUsers:
-    "COUNT(DISTINCT user_id) FROM sessions WHERE last_seen > NOW() - INTERVAL 5 minutes",
-  conversionRate: "COUNT(paid_users) / COUNT(all_users)",
-  avgRevenuePerUser: "SUM(revenue) / COUNT(DISTINCT user_id)",
+    'COUNT(DISTINCT user_id) FROM sessions WHERE last_seen > NOW() - INTERVAL 5 minutes',
+  conversionRate: 'COUNT(paid_users) / COUNT(all_users)',
+  avgRevenuePerUser: 'SUM(revenue) / COUNT(DISTINCT user_id)',
 
   // Technical metrics
-  apiLatency: "p50, p95, p99 response times",
-  errorRate: "failed_requests / total_requests",
-  scrapingSuccess: "successful_scrapes / total_attempts",
+  apiLatency: 'p50, p95, p99 response times',
+  errorRate: 'failed_requests / total_requests',
+  scrapingSuccess: 'successful_scrapes / total_attempts',
 
   // Health indicators
-  databaseConnections: "active / max connections",
-  memoryUsage: "used / allocated",
-  diskSpace: "used / available",
+  databaseConnections: 'active / max connections',
+  memoryUsage: 'used / allocated',
+  diskSpace: 'used / available',
 };
 ```
 

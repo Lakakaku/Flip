@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const { execSync } = require("child_process");
+const fs = require('fs');
+const { execSync: _execSync } = require('child_process');
 
 function completeTask() {
   try {
     // Read current task
-    if (!fs.existsSync(".current-task")) {
-      console.log("📋 No active task found");
+    if (!fs.existsSync('.current-task')) {
+      console.log('📋 No active task found');
       return;
     }
 
-    const taskData = JSON.parse(fs.readFileSync(".current-task", "utf8"));
+    const taskData = JSON.parse(fs.readFileSync('.current-task', 'utf8'));
     const completedAt = new Date().toISOString();
 
     console.log(`📋 Completing task: ${taskData.task}`);
@@ -34,25 +34,25 @@ function completeTask() {
 
     // Archive completed task
     let completedTasks = [];
-    if (fs.existsSync(".completed-tasks")) {
-      completedTasks = JSON.parse(fs.readFileSync(".completed-tasks", "utf8"));
+    if (fs.existsSync('.completed-tasks')) {
+      completedTasks = JSON.parse(fs.readFileSync('.completed-tasks', 'utf8'));
     }
     completedTasks.push(completedTask);
     fs.writeFileSync(
-      ".completed-tasks",
-      JSON.stringify(completedTasks, null, 2),
+      '.completed-tasks',
+      JSON.stringify(completedTasks, null, 2)
     );
 
     // Clean up current task
-    fs.unlinkSync(".current-task");
+    fs.unlinkSync('.current-task');
 
-    console.log("✅ Task marked as complete!");
+    console.log('✅ Task marked as complete!');
     console.log("💡 Don't forget to:");
-    console.log("   - Update TASKS.md with [x]");
-    console.log("   - Commit your changes with proper emoji");
-    console.log("   - Consider merging back to main branch");
+    console.log('   - Update TASKS.md with [x]');
+    console.log('   - Commit your changes with proper emoji');
+    console.log('   - Consider merging back to main branch');
   } catch (error) {
-    console.error("❌ Error completing task:", error.message);
+    console.error('❌ Error completing task:', error.message);
     process.exit(1);
   }
 }

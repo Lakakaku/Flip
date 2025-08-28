@@ -76,7 +76,7 @@ try {
   const result = await riskyOperation();
   return { success: true, data: result };
 } catch (error) {
-  logger.error("Operation failed", { error, context });
+  logger.error('Operation failed', { error, context });
   return { success: false, error: error.message };
 }
 ```
@@ -109,7 +109,7 @@ class Scraper {
 
 ```typescript
 // Development: Use FREE alternatives
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   // Use TensorFlow.js, Ollama, or mock responses
   return await this.localAIAnalysis(data);
 }

@@ -1,0 +1,8 @@
+# FlipFinder - Swedish Marketplace Intelligence
+User-agent: *
+Disallow: /api/
+Disallow: /(auth)/
+Disallow: /(dashboard)/
+Allow: /
+
+Sitemap: https://flipfinder.se/sitemap.xml

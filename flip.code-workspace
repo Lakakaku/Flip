@@ -1,0 +1,126 @@
+{
+  "folders": [
+    {
+      "name": "Swedish Marketplace Platform",
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Workspace-specific settings that override user settings
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/dist": true,
+      "**/.next": true,
+      "**/out": true,
+      "**/*.tsbuildinfo": true,
+      "**/coverage": true,
+      "dev.db": false,
+      "mydatabase.db": false
+    },
+    
+    // Project structure understanding
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.suggest.autoImports": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    
+    // Swedish Marketplace Platform specific settings
+    "cSpell.words": [
+      "blocket",
+      "tradera",
+      "marketplace",
+      "scrapers",
+      "puppeteer",
+      "supabase",
+      "flipper",
+      "flipsquad",
+      "freemium",
+      "stealth"
+    ],
+    
+    // Code quality enforcement
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    
+    // Database development
+    "sqltools.connections": [
+      {
+        "name": "Development Database",
+        "driver": "SQLite",
+        "database": "./dev.db",
+        "previewLimit": 50
+      }
+    ]
+  },
+  
+  "extensions": {
+    "recommendations": [
+      "ms-vscode.vscode-typescript-next",
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "mtxr.sqltools",
+      "mtxr.sqltools-driver-sqlite",
+      "supabase.supabase-vscode",
+      "usernamehw.errorlens",
+      "wayou.vscode-todo-highlight",
+      "streetsidesoftware.code-spell-checker",
+      "eamodio.gitlens",
+      "PKief.material-icon-theme",
+      "ms-vsliveshare.vsliveshare",
+      "christian-kohler.path-intellisense",
+      "ms-vscode.rest-client"
+    ]
+  },
+  
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Full Development Setup",
+        "type": "shell",
+        "command": "npm",
+        "args": ["run", "dev:preflight"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "dependsOrder": "sequence",
+        "dependsOn": [
+          "Type Check",
+          "ESLint Check",
+          "Start Development Server"
+        ]
+      }
+    ]
+  },
+  
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Swedish Marketplace Platform",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/node_modules/.bin/next",
+        "args": ["dev"],
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "NODE_OPTIONS": "--inspect",
+          "NODE_ENV": "development"
+        },
+        "console": "integratedTerminal",
+        "restart": true
+      }
+    ]
+  }
+}

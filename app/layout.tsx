@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { AuthProvider } from '@/hooks';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Flip - Swedish Marketplace Flipping Platform",
+  title: 'Flip - Swedish Marketplace Flipping Platform',
   description:
-    "Identify underpriced items on Swedish marketplaces and maximize your flipping profits",
+    'Identify underpriced items on Swedish marketplaces and maximize your flipping profits',
 };
 
 export default function RootLayout({
@@ -16,9 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={inter.className}>
-        <div className="min-h-screen bg-background">{children}</div>
+        <AuthProvider>
+          <div className='min-h-screen bg-background'>{children}</div>
+        </AuthProvider>
       </body>
     </html>
   );

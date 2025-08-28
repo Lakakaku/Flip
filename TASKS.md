@@ -69,14 +69,14 @@
 
 ### 0.3 Authentication System
 
-- [ ] 🔴 ⚙️ **[SEQ-1]** Implement Supabase Auth integration **[Architect + Frontend]**
-- [ ] 🔴 ⚙️ **[SEQ-2]** Create registration page with validation **[Frontend]**
-- [ ] 🔴 ⚙️ **[SEQ-3]** Create login/logout functionality **[Frontend]**
-- [ ] 🔴 ⚙️ **[PARALLEL]** Implement password reset flow **[Frontend]**
-- [ ] 🔴 ⚡ **[SEQ-4]** Create auth middleware for protected routes **[Architect]**
-- [ ] 🔴 ⚡ **[PARALLEL]** Set up auth callback route **[Architect]**
-- [ ] 🟡 ⚙️ **[INDEPENDENT]** Add OAuth providers (Google, Facebook) **[Architect]**
-- [ ] 🟢 ⚡ **[INDEPENDENT]** Create user profile management page **[Frontend]**
+- [x] 🔴 ⚙️ **[SEQ-1]** Implement Supabase Auth integration **[Architect + Frontend]**
+- [x] 🔴 ⚙️ **[SEQ-2]** Create registration page with validation **[Frontend]**
+- [x] 🔴 ⚙️ **[SEQ-3]** Create login/logout functionality **[Frontend]**
+- [x] 🔴 ⚙️ **[PARALLEL]** Implement password reset flow **[Frontend]**
+- [x] 🔴 ⚡ **[SEQ-4]** Create auth middleware for protected routes **[Architect]**
+- [x] 🔴 ⚡ **[PARALLEL]** Set up auth callback route **[Architect]**
+- [x] 🟡 ⚙️ **[INDEPENDENT]** Add OAuth providers (Google, Facebook) **[Architect]**
+- [x] 🟢 ⚡ **[INDEPENDENT]** Create user profile management page **[Frontend]**
 
 ### 0.4 Vercel Deployment Setup
 

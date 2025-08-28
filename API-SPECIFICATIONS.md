@@ -50,7 +50,7 @@ interface RegisterRequest {
   password: string; // Min 8 characters, 1 uppercase, 1 number
   name: string; // Display name
   home_city: string; // Swedish city for location-based deals
-  subscription_tier?: "freemium" | "silver" | "gold"; // Default: 'freemium'
+  subscription_tier?: 'freemium' | 'silver' | 'gold'; // Default: 'freemium'
 }
 ```
 
@@ -219,8 +219,8 @@ interface ListingsQuery {
   location?: string; // City or region filter
   min_profit?: number; // Minimum profit in SEK
   max_price?: number; // Maximum item price
-  platform?: "tradera" | "blocket" | "facebook" | "sellpy" | "plick";
-  sort?: "profit_desc" | "profit_asc" | "created_desc" | "ends_soon";
+  platform?: 'tradera' | 'blocket' | 'facebook' | 'sellpy' | 'plick';
+  sort?: 'profit_desc' | 'profit_asc' | 'created_desc' | 'ends_soon';
   page?: number; // Default: 1
   limit?: number; // Default: 20, Max: 100
   user_niche_only?: boolean; // Default: true
@@ -401,7 +401,7 @@ Authorization: Bearer {jwt_token}
 ```typescript
 interface UnlockRequest {
   confirm_payment: boolean; // Must be true
-  payment_method: "mock" | "swish"; // 'mock' during development
+  payment_method: 'mock' | 'swish'; // 'mock' during development
   // Note: unlock_price is calculated as percentage of estimated_market_value:
   // Freemium: 10% * estimated_market_value
   // Silver/Gold: 5% * estimated_market_value
@@ -534,7 +534,7 @@ Authorization: Bearer {jwt_token}
 
 ```typescript
 interface NotificationsQuery {
-  status?: "unread" | "read" | "all"; // Default: 'all'
+  status?: 'unread' | 'read' | 'all'; // Default: 'all'
   category?: string;
   page?: number; // Default: 1
   limit?: number; // Default: 50, Max: 200
@@ -622,17 +622,17 @@ const supabase = createClient(url, key);
 const channel = supabase
   .channel(`notifications:${userId}`)
   .on(
-    "postgres_changes",
+    'postgres_changes',
     {
-      event: "INSERT",
-      schema: "public",
-      table: "notifications",
+      event: 'INSERT',
+      schema: 'public',
+      table: 'notifications',
       filter: `user_id=eq.${userId}`,
     },
-    (payload) => {
+    payload => {
       // Handle new notification
-      console.log("New deal found!", payload.new);
-    },
+      console.log('New deal found!', payload.new);
+    }
   )
   .subscribe();
 ```
@@ -641,7 +641,7 @@ const channel = supabase
 
 ```typescript
 interface NotificationEvent {
-  event: "new_notification";
+  event: 'new_notification';
   data: {
     id: string;
     listing_id: string;
@@ -681,9 +681,9 @@ interface ProfileResponse {
       home_city: string;
 
       // Subscription info
-      subscription_tier: "freemium" | "silver" | "gold";
+      subscription_tier: 'freemium' | 'silver' | 'gold';
       subscription_expires_at?: string;
-      subscription_status: "active" | "expired" | "cancelled";
+      subscription_status: 'active' | 'expired' | 'cancelled';
 
       // Usage statistics
       total_spent: number;
@@ -740,7 +740,7 @@ interface ProfileUpdateResponse {
   success: boolean;
   data: {
     updated_fields: string[];
-    user: ProfileResponse["data"]["user"];
+    user: ProfileResponse['data']['user'];
   };
 }
 ```
@@ -867,8 +867,8 @@ interface SubscriptionResponse {
   success: boolean;
   data: {
     subscription: {
-      tier: "freemium" | "silver" | "gold";
-      status: "active" | "expired" | "cancelled" | "past_due";
+      tier: 'freemium' | 'silver' | 'gold';
+      status: 'active' | 'expired' | 'cancelled' | 'past_due';
       expires_at?: string;
       created_at: string;
 
@@ -890,7 +890,7 @@ interface SubscriptionResponse {
       // Next payment (for paid tiers)
       next_payment?: {
         amount: number;
-        currency: "SEK";
+        currency: 'SEK';
         due_date: string;
         payment_method: string;
       };
@@ -915,9 +915,9 @@ Authorization: Bearer {jwt_token}
 
 ```typescript
 interface SubscriptionUpgradeRequest {
-  target_tier: "silver" | "gold";
-  payment_method: "mock" | "swish"; // 'mock' during development
-  billing_cycle: "monthly" | "yearly";
+  target_tier: 'silver' | 'gold';
+  payment_method: 'mock' | 'swish'; // 'mock' during development
+  billing_cycle: 'monthly' | 'yearly';
 }
 ```
 
@@ -939,8 +939,8 @@ interface SubscriptionUpgradeResponse {
     payment: {
       transaction_id: string;
       amount: number;
-      currency: "SEK";
-      status: "completed" | "pending" | "failed";
+      currency: 'SEK';
+      status: 'completed' | 'pending' | 'failed';
       payment_method: string;
     };
     tier_changes: {
@@ -994,7 +994,7 @@ interface CancelSubscriptionResponse {
     cancellation: {
       effective_date: string;
       refund_amount?: number;
-      new_tier: "freemium";
+      new_tier: 'freemium';
     };
     impact: {
       features_lost: string[];
@@ -1110,7 +1110,7 @@ interface CreateFlipSquadResponse {
       created_at: string;
     };
     membership: {
-      role: "creator";
+      role: 'creator';
       profit_share: number;
       joined_at: string;
     };
@@ -1158,7 +1158,7 @@ interface FlipSquadDetailResponse {
       members?: Array<{
         user_id: string;
         name: string;
-        role: "creator" | "member";
+        role: 'creator' | 'member';
         profit_share: number;
         joined_at: string;
       }>;
@@ -1184,10 +1184,10 @@ interface FlipSquadDetailResponse {
       created_at: string;
     };
     user_membership?: {
-      role: "creator" | "member" | null;
+      role: 'creator' | 'member' | null;
       profit_share?: number;
       can_apply: boolean;
-      application_status?: "pending" | "approved" | "rejected";
+      application_status?: 'pending' | 'approved' | 'rejected';
     };
   };
 }
@@ -1222,7 +1222,7 @@ interface JoinFlipSquadResponse {
   data: {
     application: {
       squad_id: string;
-      status: "pending";
+      status: 'pending';
       message: string;
       capital_available: number;
       applied_at: string;
@@ -1249,7 +1249,7 @@ Authorization: Bearer {jwt_token}
 ```typescript
 interface SquadMessageRequest {
   message: string;
-  type?: "text" | "deal_share" | "image";
+  type?: 'text' | 'deal_share' | 'image';
   deal_id?: string; // If sharing a deal
   image_url?: string; // If sharing image
 }
@@ -1317,7 +1317,7 @@ interface AnalyzeProductResponse {
         confidence: number; // 0-1
       };
       condition_assessment: {
-        overall_condition: "new" | "like_new" | "good" | "fair" | "poor";
+        overall_condition: 'new' | 'like_new' | 'good' | 'fair' | 'poor';
         defects_detected: string[];
         condition_score: number; // 0-10
         notes: string[];
@@ -1412,17 +1412,17 @@ interface CreateListingResponse {
     listing_id: string;
     platform_results: {
       tradera?: {
-        status: "success" | "failed";
+        status: 'success' | 'failed';
         listing_url?: string;
         error?: string;
       };
       blocket?: {
-        status: "success" | "failed";
+        status: 'success' | 'failed';
         listing_url?: string;
         error?: string;
       };
       facebook?: {
-        status: "success" | "failed";
+        status: 'success' | 'failed';
         listing_url?: string;
         error?: string;
       };
@@ -1450,7 +1450,7 @@ Authorization: Bearer {jwt_token}
 
 ```typescript
 interface AutoListerListingsQuery {
-  status?: "active" | "sold" | "expired" | "all";
+  status?: 'active' | 'sold' | 'expired' | 'all';
   platform?: string;
   page?: number;
   limit?: number;
@@ -1467,13 +1467,13 @@ interface AutoListerListingsResponse {
       id: string;
       title: string;
       images: string[];
-      status: "draft" | "active" | "sold" | "expired";
+      status: 'draft' | 'active' | 'sold' | 'expired';
 
       // Platform presence
       platforms_listed: Array<{
         platform: string;
         url: string;
-        status: "active" | "sold" | "expired";
+        status: 'active' | 'sold' | 'expired';
         views: number;
         inquiries: number;
         current_price: number;
@@ -1548,7 +1548,7 @@ interface UpdateListingPriceResponse {
       platform: string;
       old_price: number;
       new_price: number;
-      status: "success" | "failed";
+      status: 'success' | 'failed';
       error?: string;
     }>;
     estimated_impact: {
@@ -1589,9 +1589,9 @@ interface PriceRecommendationsResponse {
     market_analysis: {
       similar_items_sold: number;
       average_sale_time: number; // days
-      current_demand: "low" | "medium" | "high";
+      current_demand: 'low' | 'medium' | 'high';
       seasonal_factor: number; // 0.8-1.2
-      competition_level: "low" | "medium" | "high";
+      competition_level: 'low' | 'medium' | 'high';
     };
 
     recommendations: {
@@ -1645,7 +1645,7 @@ interface CoursesResponse {
       id: string;
       title: string;
       description: string;
-      level: "beginner" | "intermediate" | "advanced";
+      level: 'beginner' | 'intermediate' | 'advanced';
       category: string;
       estimated_duration: number; // minutes
 
@@ -1656,7 +1656,7 @@ interface CoursesResponse {
       last_accessed?: string;
 
       // Access
-      tier_required: "freemium" | "silver" | "gold";
+      tier_required: 'freemium' | 'silver' | 'gold';
       is_accessible: boolean;
 
       created_at: string;
@@ -1703,7 +1703,7 @@ interface CourseDetailResponse {
         title: string;
         description: string;
         order: number;
-        content_type: "text" | "video" | "interactive";
+        content_type: 'text' | 'video' | 'interactive';
         estimated_duration: number;
 
         // Progress
@@ -1766,7 +1766,7 @@ interface ModuleContentResponse {
         questions: Array<{
           id: string;
           question: string;
-          type: "multiple_choice" | "true_false" | "text";
+          type: 'multiple_choice' | 'true_false' | 'text';
           options?: string[];
           correct_answer?: string; // Only after completion
         }>;
@@ -1922,8 +1922,8 @@ Authorization: Bearer {admin_jwt_token}
 interface AdminUsersQuery {
   search?: string; // Email or name
   tier?: string; // Subscription tier filter
-  status?: "active" | "suspended" | "banned";
-  sort?: "created_desc" | "revenue_desc" | "activity_desc";
+  status?: 'active' | 'suspended' | 'banned';
+  sort?: 'created_desc' | 'revenue_desc' | 'activity_desc';
   page?: number;
   limit?: number;
 }
@@ -1941,7 +1941,7 @@ interface AdminUsersResponse {
       name: string;
       home_city: string;
       subscription_tier: string;
-      status: "active" | "suspended" | "banned";
+      status: 'active' | 'suspended' | 'banned';
 
       // Activity
       last_login: string;
@@ -1989,7 +1989,7 @@ Authorization: Bearer {admin_jwt_token}
 
 ```typescript
 interface TriggerScrapersRequest {
-  action: "start" | "stop" | "restart" | "priority_scan";
+  action: 'start' | 'stop' | 'restart' | 'priority_scan';
   platforms?: string[]; // Specific platforms
   categories?: string[]; // Specific categories
   emergency_mode?: boolean; // Skip rate limits (use carefully)
@@ -2005,7 +2005,7 @@ interface TriggerScrapersResponse {
     action_taken: string;
     affected_scrapers: Array<{
       platform: string;
-      status: "started" | "stopped" | "restarted";
+      status: 'started' | 'stopped' | 'restarted';
       queue_size: number;
       last_successful_scan: string;
     }>;
@@ -2033,18 +2033,18 @@ Authorization: Bearer {admin_jwt_token}
 interface SystemHealthResponse {
   success: boolean;
   data: {
-    overall_status: "healthy" | "warning" | "critical";
+    overall_status: 'healthy' | 'warning' | 'critical';
 
     services: {
       database: {
-        status: "healthy" | "warning" | "critical";
+        status: 'healthy' | 'warning' | 'critical';
         response_time: number; // ms
         connections: { active: number; max: number };
         last_backup: string;
       };
 
       scrapers: {
-        status: "healthy" | "warning" | "critical";
+        status: 'healthy' | 'warning' | 'critical';
         active_scrapers: number;
         success_rate_24h: number;
         blocked_proxies: number;
@@ -2052,23 +2052,23 @@ interface SystemHealthResponse {
       };
 
       payment_system: {
-        status: "healthy" | "warning" | "critical";
+        status: 'healthy' | 'warning' | 'critical';
         success_rate_24h: number;
         failed_transactions: number;
         last_successful_payment: string;
       };
 
       notifications: {
-        status: "healthy" | "warning" | "critical";
+        status: 'healthy' | 'warning' | 'critical';
         delivery_rate_24h: number;
-        discord_bot_status: "online" | "offline";
-        email_service_status: "healthy" | "degraded";
+        discord_bot_status: 'online' | 'offline';
+        email_service_status: 'healthy' | 'degraded';
       };
     };
 
     alerts: Array<{
       id: string;
-      severity: "low" | "medium" | "high" | "critical";
+      severity: 'low' | 'medium' | 'high' | 'critical';
       component: string;
       message: string;
       created_at: string;
@@ -2287,13 +2287,13 @@ Real-time updates are delivered via Supabase WebSocket connections:
 const channel = supabase
   .channel(`notifications:${userId}`)
   .on(
-    "postgres_changes",
+    'postgres_changes',
     {
-      event: "INSERT",
-      schema: "public",
-      table: "notifications",
+      event: 'INSERT',
+      schema: 'public',
+      table: 'notifications',
     },
-    handleNewNotification,
+    handleNewNotification
   )
   .subscribe();
 ```
@@ -2305,13 +2305,13 @@ const channel = supabase
 const channel = supabase
   .channel(`squad:${squadId}`)
   .on(
-    "postgres_changes",
+    'postgres_changes',
     {
-      event: "INSERT",
-      schema: "public",
-      table: "squad_messages",
+      event: 'INSERT',
+      schema: 'public',
+      table: 'squad_messages',
     },
-    handleNewMessage,
+    handleNewMessage
   )
   .subscribe();
 ```
@@ -2384,8 +2384,8 @@ OPENAI_API_KEY=mock_key_for_testing
 
 ```typescript
 interface StatusResponse {
-  status: "operational" | "degraded" | "down";
-  services: Record<string, "operational" | "degraded" | "down">;
+  status: 'operational' | 'degraded' | 'down';
+  services: Record<string, 'operational' | 'degraded' | 'down'>;
   last_updated: string;
 }
 ```
