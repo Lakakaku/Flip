@@ -15,7 +15,7 @@ interface SocialLoginProps {
   disabled?: boolean;
 }
 
-export function SocialLogin({ redirectTo = '/dashboard', disabled = false }: SocialLoginProps) {
+export default function SocialLogin({ redirectTo = '/dashboard', disabled = false }: SocialLoginProps) {
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleSocialLogin = async (provider: 'google' | 'facebook' | 'github') => {
