@@ -1,7 +1,7 @@
 {
   "name": "flip",
   "version": "1.0.0",
-  "description": "Swedish marketplace flipping platform",
+  "description": "Swedish marketplace flipping platform - Phase 0.4 Deployed",
   "scripts": {
     "dev": "npm run dev:preflight && next dev",
     "build": "next build",
