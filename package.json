@@ -18,7 +18,6 @@
     "quality": "npm run type-check && npm run lint:strict && npm run format:check",
     "quality:fix": "npm run type-check && npm run lint:strict:fix && npm run format",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky",
     "dev:preflight": "node scripts/preflight-check.js",
     "task:start": "node scripts/task-starter.js",
     "task:complete": "node scripts/task-completer.js",
