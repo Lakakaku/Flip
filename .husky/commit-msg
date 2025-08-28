@@ -1,0 +1,23 @@
+#!/bin/sh
+# .husky/commit-msg
+
+# Enforce commit message format
+commit_regex='^(✅|🚧|🐛|📝|♻️|🔥|🔒|⚡|🎨|🏗️|🕷️|💼)\s.+'
+
+if ! grep -qE "$commit_regex" "$1"; then
+  echo "⛔ Invalid commit message format!"
+  echo "Use format: [emoji] Message"
+  echo "✅ Completed task"
+  echo "🚧 Work in progress"
+  echo "🐛 Bug fix"
+  echo "📝 Documentation"
+  echo "♻️ Refactor"
+  echo "🔥 Remove code"
+  echo "🔒 Security"
+  echo "⚡ Performance"
+  echo "🎨 UI/Frontend"
+  echo "🏗️ Architecture"
+  echo "🕷️ Scraping"
+  echo "💼 Business logic"
+  exit 1
+fi

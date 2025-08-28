@@ -1,0 +1,20 @@
+#!/bin/sh
+# .husky/post-merge
+
+# Update dependencies if package.json changed
+if git diff HEAD^ HEAD --name-only | grep -q "package.json"; then
+  echo "📦 Package.json changed, installing dependencies..."
+  npm install
+fi
+
+# Re-run database migrations if schema changed
+if git diff HEAD^ HEAD --name-only | grep -q "schema.sql"; then
+  echo "🗄️ Database schema changed, running migrations..."
+  npm run db:migrate
+fi
+
+# Check if scraper selectors need updating
+if git diff HEAD^ HEAD --name-only | grep -q "lib/scrapers"; then
+  echo "🕷️ Scraper changes detected, running validation..."
+  npm run test:scrapers
+fi

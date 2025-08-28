@@ -1,0 +1,17 @@
+#!/bin/sh
+# .husky/post-checkout
+
+# Alert if switching to branch with different phase requirements
+PREV_BRANCH=$1
+NEW_BRANCH=$2
+
+if [ "$PREV_BRANCH" != "$NEW_BRANCH" ]; then
+  echo "📋 Checking phase requirements for branch..."
+  
+  # Check which phase this branch is on
+  CURRENT_PHASE=$(grep -o "Phase [0-9]" TASKS.md | head -1)
+  echo "Current phase: $CURRENT_PHASE"
+  
+  # Validate requirements
+  npm run validate:phase-requirements
+fi

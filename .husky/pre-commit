@@ -1,0 +1,35 @@
+#!/bin/sh
+# .husky/pre-commit
+
+# Check price database before allowing commits to features that require it
+# Only enforce this for actual Phase 2+ feature implementations
+DB_COUNT=$(psql $DATABASE_URL -t -c "SELECT COUNT(*) FROM product_prices" 2>/dev/null || echo "0")
+
+# Check if we're committing actual Phase 2+ feature files (not just documentation)
+if [ "$DB_COUNT" -lt "50000" ]; then
+  # Check for Phase 2+ feature implementations in staged files (not docs)
+  if git diff --cached --name-only | grep -E "(app/.*deal|app/.*notification|lib/.*deal|lib/.*notification|components/.*deal|components/.*notification)" > /dev/null; then
+    echo "⛔ ERROR: Cannot commit Phase 2+ feature code without 50k price database records"
+    echo "Current count: $DB_COUNT"
+    echo "Files that require price database:"
+    git diff --cached --name-only | grep -E "(app/.*deal|app/.*notification|lib/.*deal|lib/.*notification|components/.*deal|components/.*notification)"
+    exit 1
+  fi
+fi
+
+# Prevent sensitive data commits (actual values, not templates/docs)
+if git diff --cached | grep -E "(OPENAI_API_KEY=sk-|SWISH_.*_ID=[0-9]|password.*=.{8,}|secret.*=.{8,})" | grep -v ".env.example" | grep -v "your_" | grep -v "mock_"; then
+  echo "⛔ ERROR: Attempting to commit sensitive data"
+  echo "Found potential secrets:"
+  git diff --cached | grep -E "(OPENAI_API_KEY=sk-|SWISH_.*_ID=[0-9]|password.*=.{8,}|secret.*=.{8,})" | grep -v ".env.example" | grep -v "your_" | grep -v "mock_"
+  exit 1
+fi
+
+# Run type checking
+npm run type-check || exit 1
+
+# Lint staged files
+npx lint-staged
+
+# Update TASKS.md progress
+node tools/update-progress.js

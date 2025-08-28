@@ -1,0 +1,91 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "comment": "⚠️ PostgreSQL database integration (ARCHIVED/DEPRECATED - Security warnings, use alternatives)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"]
+    },
+    "sqlite": {
+      "comment": "✅ SQLite database integration (official Python implementation - ACTIVE)",
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "./dev.db"]
+    },
+    "sqlite-alt": {
+      "comment": "✅ Alternative SQLite MCP server with comprehensive features (community)",
+      "command": "npx",
+      "args": ["-y", "mcp-sqlite"]
+    },
+    "git": {
+      "comment": "✅ Git repository integration (official Python implementation - ACTIVE)",
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "."]
+    },
+    "github": {
+      "comment": "✅ GitHub integration (relocated to GitHub - ACTIVE)",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ]
+    },
+    "filesystem": {
+      "comment": "✅ File system access (official TypeScript - ACTIVE)",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "--allowed-directories",
+        "."
+      ]
+    },
+    "fetch": {
+      "comment": "✅ Web content fetching (official Python implementation - ACTIVE)",
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
+    },
+    "memory": {
+      "comment": "✅ Memory and knowledge graph for Claude (official)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sequential-thinking": {
+      "comment": "✅ Sequential thinking and problem solving (official)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "everything": {
+      "comment": "✅ Exercises all MCP protocol features (official)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"]
+    },
+    "puppeteer": {
+      "comment": "⚠️ Browser automation with Puppeteer (official but ARCHIVED)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "playwright": {
+      "comment": "✅ Browser automation with Playwright (official)",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "discord": {
+      "comment": "✅ Discord integration (community - 120+ Discord API tools)",
+      "command": "npx",
+      "args": ["-y", "discord-mcp-server"]
+    },
+    "prometheus": {
+      "comment": "✅ Prometheus monitoring (community implementation)",
+      "command": "npx",
+      "args": ["-y", "prometheus-mcp-server"]
+    },
+    "redis": {
+      "comment": "⚠️ Redis integration (DEPRECATED - NPM package no longer supported)",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-redis"]
+    }
+  }
+}
